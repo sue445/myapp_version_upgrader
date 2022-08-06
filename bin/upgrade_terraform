@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require_relative "../lib/terraform_updater"
+
+DRY_RUN           = ENV["DRY_RUN"] == "true"
+TERRAFORM_VERSION = ENV["TERRAFORM_VERSION"]
+
+raise "TERRAFORM_VERSION is required" if !TERRAFORM_VERSION || TERRAFORM_VERSION.empty?
+
+updater = TerraformUpdater.new(dry_run: DRY_RUN, terraform_version: TERRAFORM_VERSION)
+updater.run
