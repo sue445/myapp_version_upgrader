@@ -2,11 +2,9 @@ name: upgrade_ruby
 
 on:
   push:
-    branches:
-      - main
     paths:
       # common
-      - "lib/base_updater.rb"
+      - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
 
@@ -14,25 +12,7 @@ on:
       - "bin/upgrade_ruby"
       - "cookbooks/upgrade_ruby_version_*.rb"
       - "cookbooks/definitions/upgrade_ruby_version.rb"
-      - "lib/ruby_updater.rb"
-      - "node.yml"
-
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-    paths:
-      # common
-      - "lib/base_updater.rb"
-      - "Gemfile"
-      - "Gemfile.lock"
-
-      - ".github/workflows/upgrade_ruby.yml"
-      - "bin/upgrade_ruby"
-      - "cookbooks/upgrade_ruby_version_*.rb"
-      - "cookbooks/definitions/upgrade_ruby_version.rb"
-      - "lib/ruby_updater.rb"
+      - "lib/ruby_update_runner.rb"
       - "node.yml"
 
 env:

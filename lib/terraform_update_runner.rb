@@ -1,6 +1,6 @@
-require_relative "./base_updater"
+require_relative "base_runner"
 
-class TerraformUpdater < BaseUpdater
+class TerraformUpdateRunner < BaseRunner
   # @param terraform_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]
