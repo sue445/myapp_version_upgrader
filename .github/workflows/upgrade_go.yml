@@ -2,27 +2,9 @@ name: upgrade_go
 
 on:
   push:
-    branches:
-      - main
     paths:
       # common
-      - "lib/base_updater.rb"
-      - "Gemfile"
-      - "Gemfile.lock"
-
-      - ".github/workflows/upgrade_go.yml"
-      - "bin/upgrade_go"
-      - "cookbooks/upgrade_go_version.rb"
-      - "lib/go_updater.rb"
-
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-    paths:
-      # common
-      - "lib/base_updater.rb"
+      - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
 

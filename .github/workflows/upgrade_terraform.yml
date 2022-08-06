@@ -2,24 +2,6 @@ name: upgrade_terraform
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      # common
-      - "lib/base_runner.rb"
-      - "Gemfile"
-      - "Gemfile.lock"
-
-      - ".github/workflows/upgrade_terraform.yml"
-      - "bin/upgrade_terraform"
-      - "cookbooks/upgrade_terraform_version.rb"
-      - "lib/terraform_update_runner.rb"
-
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
     paths:
       # common
       - "lib/base_runner.rb"
