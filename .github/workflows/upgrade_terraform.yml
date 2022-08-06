@@ -31,6 +31,9 @@ on:
       - "cookbooks/upgrade_terraform_version.rb"
       - "lib/terraform_updater.rb"
 
+env:
+  ASSIGNEE: sue445
+
 jobs:
   build:
     runs-on: ubuntu-latest

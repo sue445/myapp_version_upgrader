@@ -2,13 +2,12 @@ require "tmpdir"
 require "yaml"
 
 class BaseUpdater
-  ASSIGNEE = "sue445"
-
   REPO_DIR = "tmp/repo"
 
   # @param dry_run [Boolean]
-  def initialize(dry_run:)
+  def initialize(dry_run:, assignee:)
     @dry_run = dry_run
+    @assignee = assignee
     @log_level = "info"
 
     @node = YAML.load_file(node_yaml)
@@ -21,10 +20,17 @@ class BaseUpdater
       if !@dry_run && updated_repo?
         escaped_commit_message = commit_message.gsub("'", "'\\\\''")
 
+        assignee =
+          if @assignee && !@assignee.empty?
+            "--assignee #{@assignee}"
+          else
+            ""
+          end
+
         sh "git checkout -b #{branch_name}"
         sh "git commit -am '#{escaped_commit_message}'"
         sh "git push origin #{branch_name}"
-        sh "gh pr create --assignee #{ASSIGNEE} --fill --title '#{escaped_commit_message}'"
+        sh "gh pr create #{assignee} --fill --title '#{escaped_commit_message}'"
       end
     end
   end

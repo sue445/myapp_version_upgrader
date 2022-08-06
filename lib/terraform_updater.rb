@@ -3,9 +3,10 @@ require_relative "./base_updater"
 class TerraformUpdater < BaseUpdater
   # @param terraform_version [String]
   # @param dry_run [Boolean]
-  def initialize(terraform_version:, dry_run:)
+  # @param assignee [String]
+  def initialize(terraform_version:, dry_run:, assignee:)
     @terraform_version = terraform_version
-    super(dry_run: dry_run)
+    super(dry_run:, assignee:)
   end
 
   # @return [String]

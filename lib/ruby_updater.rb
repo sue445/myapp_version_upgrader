@@ -4,10 +4,11 @@ class RubyUpdater < BaseUpdater
   # @param ruby_minor_version [String]
   # @param only_minor_version [Boolean]
   # @param dry_run [Boolean]
-  def initialize(ruby_minor_version:, only_minor_version:, dry_run:)
+  # @param assignee [String]
+  def initialize(ruby_minor_version:, only_minor_version:, dry_run:, assignee:)
     @ruby_minor_version = ruby_minor_version
     @only_minor_version = only_minor_version
-    super(dry_run: dry_run)
+    super(dry_run:, assignee:)
   end
 
   # @return [String]
