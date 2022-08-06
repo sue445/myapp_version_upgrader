@@ -35,6 +35,9 @@ on:
       - "lib/ruby_updater.rb"
       - "node.yml"
 
+env:
+  ASSIGNEE: sue445
+
 jobs:
   build:
     runs-on: ubuntu-latest

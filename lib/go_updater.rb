@@ -3,9 +3,10 @@ require_relative "./base_updater"
 class GoUpdater < BaseUpdater
   # @param go_version [String]
   # @param dry_run [Boolean]
-  def initialize(go_version:, dry_run:)
+  # @param assignee [String]
+  def initialize(go_version:, dry_run:, assignee:)
     @go_version = go_version
-    super(dry_run: dry_run)
+    super(dry_run:, assignee:)
   end
 
   # @return [String]

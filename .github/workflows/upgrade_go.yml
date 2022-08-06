@@ -31,6 +31,9 @@ on:
       - "cookbooks/upgrade_go_version.rb"
       - "lib/go_updater.rb"
 
+env:
+  ASSIGNEE: sue445
+
 jobs:
   build:
     runs-on: ubuntu-latest
