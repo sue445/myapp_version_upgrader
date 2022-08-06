@@ -6,14 +6,14 @@ on:
       - main
     paths:
       # common
-      - "lib/base_updater.rb"
+      - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
 
       - ".github/workflows/upgrade_terraform.yml"
       - "bin/upgrade_terraform"
       - "cookbooks/upgrade_terraform_version.rb"
-      - "lib/terraform_updater.rb"
+      - "lib/terraform_update_runner.rb"
 
   pull_request:
     types:
@@ -22,14 +22,14 @@ on:
       - reopened
     paths:
       # common
-      - "lib/base_updater.rb"
+      - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
 
       - ".github/workflows/upgrade_terraform.yml"
       - "bin/upgrade_terraform"
       - "cookbooks/upgrade_terraform_version.rb"
-      - "lib/terraform_updater.rb"
+      - "lib/terraform_update_runner.rb"
 
 env:
   ASSIGNEE: sue445

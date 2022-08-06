@@ -1,6 +1,6 @@
-require_relative "./base_updater"
+require_relative "base_runner"
 
-class GoUpdater < BaseUpdater
+class GoUpdateRunner < BaseRunner
   # @param go_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]

@@ -6,7 +6,7 @@ on:
       - main
     paths:
       # common
-      - "lib/base_updater.rb"
+      - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
 
@@ -14,7 +14,7 @@ on:
       - "bin/upgrade_ruby"
       - "cookbooks/upgrade_ruby_version_*.rb"
       - "cookbooks/definitions/upgrade_ruby_version.rb"
-      - "lib/ruby_updater.rb"
+      - "lib/ruby_update_runner.rb"
       - "node.yml"
 
   pull_request:
@@ -24,7 +24,7 @@ on:
       - reopened
     paths:
       # common
-      - "lib/base_updater.rb"
+      - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
 
@@ -32,7 +32,7 @@ on:
       - "bin/upgrade_ruby"
       - "cookbooks/upgrade_ruby_version_*.rb"
       - "cookbooks/definitions/upgrade_ruby_version.rb"
-      - "lib/ruby_updater.rb"
+      - "lib/ruby_update_runner.rb"
       - "node.yml"
 
 env:

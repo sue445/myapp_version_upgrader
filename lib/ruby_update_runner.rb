@@ -1,6 +1,6 @@
-require_relative "./base_updater"
+require_relative "base_runner"
 
-class RubyUpdater < BaseUpdater
+class RubyUpdateRunner < BaseRunner
   # @param ruby_minor_version [String]
   # @param only_minor_version [Boolean]
   # @param dry_run [Boolean]

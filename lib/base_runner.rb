@@ -1,7 +1,7 @@
 require "tmpdir"
 require "yaml"
 
-class BaseUpdater
+class BaseRunner
   REPO_DIR = "tmp/repo"
 
   # @param dry_run [Boolean]
