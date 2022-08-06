@@ -1,6 +1,10 @@
 # myapp_version_upgrader
 Upgrade runtime versions for my apps
 
+[![upgrade_go](https://github.com/sue445/myapp_version_upgrader/actions/workflows/upgrade_go.yml/badge.svg)](https://github.com/sue445/myapp_version_upgrader/actions/workflows/upgrade_go.yml)
+[![upgrade_ruby](https://github.com/sue445/myapp_version_upgrader/actions/workflows/upgrade_ruby.yml/badge.svg)](https://github.com/sue445/myapp_version_upgrader/actions/workflows/upgrade_ruby.yml)
+[![upgrade_terraform](https://github.com/sue445/myapp_version_upgrader/actions/workflows/upgrade_terraform.yml/badge.svg)](https://github.com/sue445/myapp_version_upgrader/actions/workflows/upgrade_terraform.yml)
+
 ## Setup
 ### 1. Create GitHub App
 https://github.com/settings/apps/new
