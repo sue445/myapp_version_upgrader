@@ -1,0 +1,129 @@
+name: upgrade_go
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # common
+      - "lib/base_updater.rb"
+      - "Gemfile"
+      - "Gemfile.lock"
+
+      - ".github/workflows/upgrade_go.yml"
+      - "bin/upgrade_go"
+      - "cookbooks/upgrade_go_version.rb"
+      - "lib/go_updater.rb"
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      # common
+      - "lib/base_updater.rb"
+      - "Gemfile"
+      - "Gemfile.lock"
+
+      - ".github/workflows/upgrade_go.yml"
+      - "bin/upgrade_go"
+      - "cookbooks/upgrade_go_version.rb"
+      - "lib/go_updater.rb"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+      matrix:
+        repo:
+          - "sue445/condo3"
+          - "sue445/gitpanda"
+          - "sue445/plant_erd"
+          - "sue445/zatsu_monitor"
+        include:
+          - repo: "sue445/gitpanda"
+            go_version: "1.18"
+
+          - repo: "sue445/plant_erd"
+            go_version: "1.18"
+
+          - repo: "sue445/zatsu_monitor"
+            go_version: "1.18"
+
+          # c.f. https://cloud.google.com/appengine/docs/standard/go/runtime?hl=ja
+          - repo: "sue445/condo3"
+            go_version: "1.16"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+          bundler-cache: true
+
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
+
+      - name: checkout target repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -l tmp/repo/
+
+      - name: Run ./bin/upgrade_go
+        run: |
+          set -xe
+
+          git config --global user.email "version_updater@example.com"
+          git config --global user.name "version_updater"
+
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            export DRY_RUN=false
+          else
+            export DRY_RUN=true
+          fi
+          ./bin/upgrade_go
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_REPO:  ${{ matrix.repo }}
+          GO_VERSION:   ${{ matrix.go_version }}
+
+      - name: Slack Notification (not success)
+        uses: lazy-actions/slatify@master
+        if: "! success()"
+        continue-on-error: true
+        with:
+          job_name: ${{ format('*upgrade_go* ({0})', matrix.repo) }}
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  notify:
+    needs:
+      - build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Slack Notification (success)
+        uses: lazy-actions/slatify@master
+        if: always()
+        continue-on-error: true
+        with:
+          job_name: '*build*'
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}

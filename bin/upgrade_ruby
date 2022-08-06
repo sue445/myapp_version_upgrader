@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require_relative "../lib/ruby_updater"
+
+RUBY_MINOR_VERSION = ENV["RUBY_MINOR_VERSION"]
+DRY_RUN            = ENV["DRY_RUN"] == "true"
+ONLY_MINOR_VERSION = ENV["ONLY_MINOR_VERSION"] == "true"
+
+raise "RUBY_MINOR_VERSION is required" if !RUBY_MINOR_VERSION || RUBY_MINOR_VERSION.empty?
+
+updater = RubyUpdater.new(ruby_minor_version: RUBY_MINOR_VERSION, only_minor_version: ONLY_MINOR_VERSION, dry_run: DRY_RUN)
+updater.run

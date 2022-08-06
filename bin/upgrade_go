@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require_relative "../lib/go_updater"
+
+DRY_RUN    = ENV["DRY_RUN"] == "true"
+GO_VERSION = ENV["GO_VERSION"]
+
+raise "GO_VERSION is required" if !GO_VERSION || GO_VERSION.empty?
+
+updater = GoUpdater.new(dry_run: DRY_RUN, go_version: GO_VERSION)
+updater.run
