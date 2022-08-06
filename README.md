@@ -25,4 +25,4 @@ Download private key
 * `GH_PRIVATE_KEY` : GitHub App Private key
 * `SLACK_WEBHOOK`
 
-### 3. Install App to repository
+### 3. Install App to repositories
