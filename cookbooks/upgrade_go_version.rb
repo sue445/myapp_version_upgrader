@@ -1,6 +1,10 @@
 REPO_DIR = "tmp/repo/"
 
-%w(test build release).each do |name|
+%w(
+  build
+  release
+  test
+).each do |name|
   file "#{REPO_DIR}/.github/workflows/#{name}.yml" do
     action :edit
 

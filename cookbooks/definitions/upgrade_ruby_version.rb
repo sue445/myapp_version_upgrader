@@ -112,11 +112,11 @@ define :upgrade_ruby_version do
   end
 
   %w(
-    bundle-update-pr.yml
-    deploy.yml
-    test.yml
-  ).each do |workflow_yaml|
-    file "#{REPO_DIR}/.github/workflows/#{workflow_yaml}" do
+    bundle-update-pr
+    deploy
+    test
+  ).each do |name|
+    file "#{REPO_DIR}/.github/workflows/#{name}.yml" do
       action :edit
 
       block do |content|
@@ -129,7 +129,7 @@ define :upgrade_ruby_version do
         content.gsub!(/ruby\d{2}(?!\d)/, gcf_runtime_version)
       end
 
-      only_if "ls #{REPO_DIR}/.github/workflows/#{workflow_yaml}"
+      only_if "ls #{REPO_DIR}/.github/workflows/#{name}.yml"
     end
   end
 end
