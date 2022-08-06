@@ -1,0 +1,174 @@
+name: upgrade_ruby
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # common
+      - "lib/base_updater.rb"
+      - "Gemfile"
+      - "Gemfile.lock"
+
+      - ".github/workflows/upgrade_ruby.yml"
+      - "bin/upgrade_ruby"
+      - "cookbooks/upgrade_ruby_version_*.rb"
+      - "cookbooks/definitions/upgrade_ruby_version.rb"
+      - "lib/ruby_updater.rb"
+      - "node.yml"
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      # common
+      - "lib/base_updater.rb"
+      - "Gemfile"
+      - "Gemfile.lock"
+
+      - ".github/workflows/upgrade_ruby.yml"
+      - "bin/upgrade_ruby"
+      - "cookbooks/upgrade_ruby_version_*.rb"
+      - "cookbooks/definitions/upgrade_ruby_version.rb"
+      - "lib/ruby_updater.rb"
+      - "node.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+      matrix:
+        repo:
+          - "sue445/ccc_privacy_crawler"
+          - "sue445/chatwork_mention_task"
+          - "sue445/cure-bots"
+          - "sue445/cure-mastodon-bots"
+          - "sue445/dockerhub-slack-webhook"
+          - "sue445/emoy_webhook"
+          - "sue445/precure-birthday-calendar"
+          - "sue445/pretty-all-friends-birthday-calendar"
+          - "sue445/pribirthdaybot"
+          - "sue445/regional-rb-calendar"
+          - "sue445/sebastian-badge"
+          - "sue445/tweet_pixels"
+          - "sue445/twittodon"
+        include:
+          - repo: "sue445/ccc_privacy_crawler"
+            ruby_minor_version: "3.1"
+
+          - repo: "sue445/chatwork_mention_task"
+            ruby_minor_version: "3.1"
+
+          - repo: "sue445/cure-bots"
+            ruby_minor_version: "3.1"
+            only_minor_version: "true"
+
+          - repo: "sue445/cure-mastodon-bots"
+            ruby_minor_version: "3.1"
+
+          - repo: "sue445/dockerhub-slack-webhook"
+            ruby_minor_version: "3.1"
+
+          - repo: "sue445/emoy_webhook"
+            ruby_minor_version: "3.1"
+
+          - repo: "sue445/precure-birthday-calendar"
+            ruby_minor_version: "3.1"
+            only_minor_version: "true"
+
+          - repo: "sue445/pretty-all-friends-birthday-calendar"
+            ruby_minor_version: "3.1"
+            only_minor_version: "true"
+
+          - repo: "sue445/pribirthdaybot"
+            ruby_minor_version: "3.1"
+            only_minor_version: "true"
+
+          - repo: "sue445/regional-rb-calendar"
+            ruby_minor_version: "3.1"
+
+          - repo: "sue445/sebastian-badge"
+            ruby_minor_version: "2.7" # FIXME: kaminari-sinatraがRuby 3.0で動かないので2.7系で固定
+
+          - repo: "sue445/tweet_pixels"
+            ruby_minor_version: "3.1"
+            only_minor_version: "true"
+
+          - repo: "sue445/twittodon"
+            ruby_minor_version: "2.6" # FIXME: mastodon-apiが依存してるhttp gemが古すぎて2.7以降で動かない
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+          bundler-cache: true
+
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
+
+      - name: checkout target repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -l tmp/repo/
+
+      - name: Run ./bin/upgrade_ruby
+        run: |
+          set -xe
+
+          git config --global user.email "version_updater@example.com"
+          git config --global user.name "version_updater"
+
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            export DRY_RUN=false
+          else
+            export DRY_RUN=true
+          fi
+          ./bin/upgrade_ruby
+        env:
+          GITHUB_TOKEN:       ${{ steps.generate_token.outputs.token }}
+          GITHUB_REPO:        ${{ matrix.repo }}
+          RUBY_MINOR_VERSION: ${{ matrix.ruby_minor_version }}
+          ONLY_MINOR_VERSION: ${{ matrix.only_minor_version }}
+
+      - name: Slack Notification (not success)
+        uses: lazy-actions/slatify@master
+        if: "! success()"
+        continue-on-error: true
+        with:
+          job_name: ${{ format('*upgrade_ruby* ({0})', matrix.repo) }}
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  notify:
+    needs:
+      - build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Slack Notification (success)
+        uses: lazy-actions/slatify@master
+        if: always()
+        continue-on-error: true
+        with:
+          job_name: '*build*'
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}
