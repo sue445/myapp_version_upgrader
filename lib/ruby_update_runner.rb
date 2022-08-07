@@ -23,10 +23,11 @@ class RubyUpdateRunner < BaseRunner
   # @param node [Hash]
   def update_node(node)
     node["only_minor_version"] = @only_minor_version
+    node["ruby_full_version"] = ruby_full_version
   end
 
   def recipe_file
-    File.join(__dir__, "..", "cookbooks", "upgrade_ruby_version_#{@ruby_minor_version.gsub(".", "_")}.rb")
+    File.join(__dir__, "..", "cookbooks", "upgrade_ruby_version.rb")
   end
 
   def branch_name
