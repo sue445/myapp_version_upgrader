@@ -30,13 +30,13 @@ jobs:
           - "sue445/zatsu_monitor"
         include:
           - repo: "sue445/gitpanda"
-            go_version: "1.18"
+            go_version: "1.19"
 
           - repo: "sue445/plant_erd"
-            go_version: "1.18"
+            go_version: "1.19"
 
           - repo: "sue445/zatsu_monitor"
-            go_version: "1.18"
+            go_version: "1.19"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/go/runtime?hl=ja
           - repo: "sue445/condo3"
