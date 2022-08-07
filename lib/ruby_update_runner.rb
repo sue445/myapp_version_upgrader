@@ -16,7 +16,7 @@ class RubyUpdateRunner < BaseRunner
     if @only_minor_version
       "Upgrade to Ruby #{@ruby_minor_version} :gem:"
     else
-      "Upgrade to Ruby #{target_ruby_version} :gem:"
+      "Upgrade to Ruby #{ruby_full_version} :gem:"
     end
   end
 
@@ -32,13 +32,13 @@ class RubyUpdateRunner < BaseRunner
   def branch_name
     return "ruby_#{@ruby_minor_version}" if @only_minor_version
 
-    "ruby_#{target_ruby_version}"
+    "ruby_#{ruby_full_version}"
   end
 
   private
 
   # @return [String]
-  def target_ruby_version
+  def ruby_full_version
     @node["ruby"]["version"][@ruby_minor_version]
   end
 end
