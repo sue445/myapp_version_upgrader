@@ -27,6 +27,7 @@ jobs:
           - "sue445/condo3"
           - "sue445/gitpanda"
           - "sue445/plant_erd"
+          - "sue445/primap"
           - "sue445/zatsu_monitor"
         include:
           - repo: "sue445/gitpanda"
@@ -40,6 +41,10 @@ jobs:
 
           # c.f. https://cloud.google.com/appengine/docs/standard/go/runtime?hl=ja
           - repo: "sue445/condo3"
+            go_version: "1.16"
+
+          # c.f. https://cloud.google.com/functions/docs/concepts/go-runtime?hl=ja
+          - repo: "sue445/primap"
             go_version: "1.16"
 
     steps:

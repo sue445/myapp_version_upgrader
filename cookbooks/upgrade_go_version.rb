@@ -1,5 +1,7 @@
 REPO_DIR = "tmp/repo/"
 
+gcp_runtime_version = "go#{node[:go_version].gsub(".", "")}"
+
 %w(
   build
   release
@@ -17,14 +19,19 @@ REPO_DIR = "tmp/repo/"
   end
 end
 
-file "#{REPO_DIR}/go.mod" do
-  action :edit
+%w(
+  go.mod
+  function/go.mod
+).each do |name|
+  file "#{REPO_DIR}/#{name}" do
+    action :edit
 
-  block do |content|
-    content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}")
+    block do |content|
+      content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}")
+    end
+
+    only_if "ls #{REPO_DIR}/#{name}"
   end
-
-  only_if "ls #{REPO_DIR}/go.mod"
 end
 
 file "#{REPO_DIR}/.circleci/config.yml" do
@@ -48,14 +55,18 @@ file "#{REPO_DIR}/Dockerfile" do
   only_if "ls #{REPO_DIR}/Dockerfile"
 end
 
-file "#{REPO_DIR}/app.yaml" do
-  action :edit
+%w(
+  app.yaml
+  serverless.yml
+  function/serverless.yml
+).each do |name|
+  file "#{REPO_DIR}/#{name}" do
+    action :edit
 
-  block do |content|
-    gae_runtime_version = "go#{node[:go_version].gsub(".", "")}"
+    block do |content|
+      content.gsub!(/^runtime: go\d+$/, "runtime: #{gcp_runtime_version}")
+    end
 
-    content.gsub!(/^runtime: go\d+$/, "runtime: #{gae_runtime_version}")
+    only_if "ls #{REPO_DIR}/#{name}"
   end
-
-  only_if "ls #{REPO_DIR}/app.yaml"
 end
