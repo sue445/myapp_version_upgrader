@@ -1,29 +1,29 @@
 require_relative "base_runner"
+require "open-uri"
 
 class RubyUpdateRunner < BaseRunner
-  # @param ruby_minor_version [String]
-  # @param only_minor_version [Boolean]
+  # @param ruby_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]
-  def initialize(ruby_minor_version:, only_minor_version:, dry_run:, assignee:)
-    @ruby_minor_version = ruby_minor_version
-    @only_minor_version = only_minor_version
+  def initialize(ruby_version:, dry_run:, assignee:)
+    @ruby_version = ruby_version
     super(dry_run:, assignee:)
   end
 
   # @return [String]
   def commit_message
-    if @only_minor_version
-      "Upgrade to Ruby #{@ruby_minor_version} :gem:"
-    else
-      "Upgrade to Ruby #{ruby_full_version} :gem:"
-    end
+    "Upgrade to Ruby #{@ruby_version} :gem:"
   end
 
   # @param node [Hash]
   def update_node(node)
-    node["only_minor_version"] = @only_minor_version
-    node["ruby_full_version"] = ruby_full_version
+    node[:ruby_version] = @ruby_version
+    node[:ruby_version_with_patch_level] = ruby_version_with_patch_level
+
+    v = @ruby_version.split(".")
+    node[:is_full_version] = v.count == 3
+    node[:ruby_minor_version] = "#{v[0]}.#{v[1]}"
+    node[:gcf_runtime_version] = "ruby#{v[0]}#{v[1]}"
   end
 
   def recipe_file
@@ -31,15 +31,20 @@ class RubyUpdateRunner < BaseRunner
   end
 
   def branch_name
-    return "ruby_#{@ruby_minor_version}" if @only_minor_version
-
-    "ruby_#{ruby_full_version}"
+    "ruby_#{@ruby_version}"
   end
 
   private
 
-  # @return [String]
-  def ruby_full_version
-    @node["ruby"]["version"][@ruby_minor_version]
+  def ruby_version_with_patch_level
+    v = @ruby_version.split(".")
+    return nil unless v.size == 3
+
+    # Fetch RUBY_PATCHLEVEL from https://github.com/ruby/ruby/blob/master/version.h
+    git_tag = "v" + @ruby_version.gsub(".", "_")
+    version_h = URI.open("https://raw.githubusercontent.com/ruby/ruby/#{git_tag}/version.h").read
+    ruby_patchlevel = /^#define\s+RUBY_PATCHLEVEL\s+(\d+)/.match(version_h).to_a[1]
+
+    "#{@ruby_version}p#{ruby_patchlevel}"
   end
 end

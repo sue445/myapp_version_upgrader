@@ -41,49 +41,43 @@ jobs:
           - "sue445/twittodon"
         include:
           - repo: "sue445/ccc_privacy_crawler"
-            ruby_minor_version: "3.1"
+            ruby_version: "3.1.2"
 
           - repo: "sue445/chatwork_mention_task"
-            ruby_minor_version: "3.1"
+            ruby_version: "3.1.2"
 
           - repo: "sue445/cure-bots"
-            ruby_minor_version: "3.1"
-            only_minor_version: "true"
+            ruby_version: "3.1"
 
           - repo: "sue445/cure-mastodon-bots"
-            ruby_minor_version: "3.1"
+            ruby_version: "3.1.2"
 
           - repo: "sue445/dockerhub-slack-webhook"
-            ruby_minor_version: "3.1"
+            ruby_version: "3.1.2"
 
           - repo: "sue445/emoy_webhook"
-            ruby_minor_version: "3.1"
-            only_minor_version: "true"
+            ruby_version: "3.1"
 
           - repo: "sue445/precure-birthday-calendar"
-            ruby_minor_version: "3.1"
-            only_minor_version: "true"
+            ruby_version: "3.1"
 
           - repo: "sue445/pretty-all-friends-birthday-calendar"
-            ruby_minor_version: "3.1"
-            only_minor_version: "true"
+            ruby_version: "3.1"
 
           - repo: "sue445/pribirthdaybot"
-            ruby_minor_version: "3.1"
-            only_minor_version: "true"
+            ruby_version: "3.1"
 
           - repo: "sue445/regional-rb-calendar"
-            ruby_minor_version: "3.1"
+            ruby_version: "3.1.2"
 
           - repo: "sue445/sebastian-badge"
-            ruby_minor_version: "2.7" # FIXME: kaminari-sinatraがRuby 3.0で動かないので2.7系で固定
+            ruby_version: "2.7.6" # FIXME: kaminari-sinatraがRuby 3.0で動かないので2.7系で固定
 
           - repo: "sue445/tweet_pixels"
-            ruby_minor_version: "3.1"
-            only_minor_version: "true"
+            ruby_version: "3.1"
 
           - repo: "sue445/twittodon"
-            ruby_minor_version: "2.6" # FIXME: mastodon-apiが依存してるhttp gemが古すぎて2.7以降で動かない
+            ruby_version: "2.6.10" # FIXME: mastodon-apiが依存してるhttp gemが古すぎて2.7以降で動かない
 
     steps:
       - uses: actions/checkout@v2
@@ -123,10 +117,9 @@ jobs:
           fi
           ./bin/upgrade_ruby
         env:
-          GITHUB_TOKEN:       ${{ steps.generate_token.outputs.token }}
-          GITHUB_REPO:        ${{ matrix.repo }}
-          RUBY_MINOR_VERSION: ${{ matrix.ruby_minor_version }}
-          ONLY_MINOR_VERSION: ${{ matrix.only_minor_version }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_REPO:  ${{ matrix.repo }}
+          RUBY_VERSION: ${{ matrix.ruby_version }}
 
       - name: Slack Notification (not success)
         uses: lazy-actions/slatify@master

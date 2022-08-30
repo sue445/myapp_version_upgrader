@@ -44,6 +44,7 @@ class BaseRunner
   def run_itamae
     Dir.mktmpdir("ci-config-itamae") do |tmp_dir|
       node = YAML.load_file(node_yaml)
+      node ||= {}
       update_node(node)
 
       tmp_node_yml = File.join(tmp_dir, "node.yml")
