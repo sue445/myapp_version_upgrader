@@ -58,6 +58,7 @@ jobs:
 
           - repo: "sue445/emoy_webhook"
             ruby_minor_version: "3.1"
+            only_minor_version: "true"
 
           - repo: "sue445/precure-birthday-calendar"
             ruby_minor_version: "3.1"

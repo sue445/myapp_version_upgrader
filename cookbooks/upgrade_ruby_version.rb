@@ -99,7 +99,7 @@ file "#{REPO_DIR}/Dockerfile" do
 
   block do |content|
     if node[:only_minor_version]
-      content.gsub!(/^FROM ruby:([\d.]+)$/, %Q{FROM ruby:#{minor_version}.0})
+      content.gsub!(/^FROM ruby:([\d.]+)$/, %Q{FROM ruby:#{minor_version}})
     else
       content.gsub!(/^FROM ruby:([\d.]+)$/, %Q{FROM ruby:#{node[:ruby_full_version]}})
     end
