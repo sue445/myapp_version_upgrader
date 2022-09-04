@@ -88,6 +88,7 @@ end
   bundle-update-pr
   deploy
   test
+  build
 ).each do |name|
   file "#{REPO_DIR}/.github/workflows/#{name}.yml" do
     action :edit
