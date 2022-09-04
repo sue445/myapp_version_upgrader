@@ -10,8 +10,7 @@ on:
 
       - ".github/workflows/upgrade_ruby.yml"
       - "bin/upgrade_ruby"
-      - "cookbooks/upgrade_ruby_version_*.rb"
-      - "cookbooks/definitions/upgrade_ruby_version.rb"
+      - "cookbooks/upgrade_ruby_version.rb"
       - "lib/ruby_update_runner.rb"
       - "node.yml"
 
