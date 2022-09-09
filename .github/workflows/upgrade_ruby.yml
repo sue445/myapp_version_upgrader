@@ -26,7 +26,6 @@ jobs:
       matrix:
         repo:
           - "sue445/ccc_privacy_crawler"
-          - "sue445/chatwork_mention_task"
           - "sue445/cure-bots"
           - "sue445/cure-mastodon-bots"
           - "sue445/dockerhub-slack-webhook"
@@ -35,14 +34,9 @@ jobs:
           - "sue445/pretty-all-friends-birthday-calendar"
           - "sue445/pribirthdaybot"
           - "sue445/regional-rb-calendar"
-          - "sue445/sebastian-badge"
           - "sue445/tweet_pixels"
-          - "sue445/twittodon"
         include:
           - repo: "sue445/ccc_privacy_crawler"
-            ruby_version: "3.1.2"
-
-          - repo: "sue445/chatwork_mention_task"
             ruby_version: "3.1.2"
 
           - repo: "sue445/cure-bots"
@@ -66,14 +60,8 @@ jobs:
           - repo: "sue445/pribirthdaybot"
             ruby_version: "3.1"
 
-          - repo: "sue445/sebastian-badge"
-            ruby_version: "2.7.6" # FIXME: kaminari-sinatraがRuby 3.0で動かないので2.7系で固定
-
           - repo: "sue445/tweet_pixels"
             ruby_version: "3.1"
-
-          - repo: "sue445/twittodon"
-            ruby_version: "2.6.10" # FIXME: mastodon-apiが依存してるhttp gemが古すぎて2.7以降で動かない
 
           # NOTE: GCFで使えるrubyのバージョンは https://cloud.google.com/functions/docs/concepts/ruby-runtime?hl=ja で確認する
           - repo: "sue445/regional-rb-calendar"
