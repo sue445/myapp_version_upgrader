@@ -43,7 +43,7 @@ jobs:
             ruby_version: "3.1"
 
           - repo: "sue445/cure-mastodon-bots"
-            ruby_version: "3.1.2"
+            ruby_version: "3.1"
 
           - repo: "sue445/dockerhub-slack-webhook"
             ruby_version: "3.1.2"
