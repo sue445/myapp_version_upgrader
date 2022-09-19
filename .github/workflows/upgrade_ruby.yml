@@ -25,7 +25,7 @@ jobs:
 
       matrix:
         repo:
-          - "sue445/ccc_privacy_crawler"
+          # - "sue445/ccc_privacy_crawler"
           - "sue445/cure-bots"
           - "sue445/cure-mastodon-bots"
           - "sue445/dockerhub-slack-webhook"
@@ -36,8 +36,8 @@ jobs:
           - "sue445/regional-rb-calendar"
           - "sue445/tweet_pixels"
         include:
-          - repo: "sue445/ccc_privacy_crawler"
-            ruby_version: "3.1.2"
+          # - repo: "sue445/ccc_privacy_crawler"
+          #   ruby_version: "3.1.2"
 
           - repo: "sue445/cure-bots"
             ruby_version: "3.1"
