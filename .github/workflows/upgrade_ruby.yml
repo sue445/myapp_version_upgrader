@@ -24,16 +24,6 @@ jobs:
       fail-fast: false
 
       matrix:
-        repo:
-          - "sue445/cure-bots"
-          - "sue445/cure-mastodon-bots"
-          - "sue445/dockerhub-slack-webhook"
-          - "sue445/emoy_webhook"
-          - "sue445/precure-birthday-calendar"
-          - "sue445/pretty-all-friends-birthday-calendar"
-          - "sue445/pribirthdaybot"
-          - "sue445/regional-rb-calendar"
-          - "sue445/tweet_pixels"
         include:
           - repo: "sue445/cure-bots"
             ruby_version: "3.1"

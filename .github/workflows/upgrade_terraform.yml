@@ -23,9 +23,6 @@ jobs:
       fail-fast: false
 
       matrix:
-        repo:
-          - "sue445/terraform-aws-template"
-          - "sue445/terraform-gcp-template"
         include:
           # c.f. https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md
           - repo: "sue445/terraform-aws-template"
