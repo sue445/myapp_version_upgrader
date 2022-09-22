@@ -7,6 +7,7 @@ on:
       - "lib/base_runner.rb"
       - "Gemfile"
       - "Gemfile.lock"
+      - ".ruby-version"
 
       - ".github/workflows/upgrade_go.yml"
       - "bin/upgrade_go"
@@ -46,7 +47,6 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
           bundler-cache: true
 
       - name: Generate token
