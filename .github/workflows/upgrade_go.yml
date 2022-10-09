@@ -43,7 +43,7 @@ jobs:
             go_version: "1.16"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -57,7 +57,7 @@ jobs:
           private_key: ${{ secrets.GH_PRIVATE_KEY }}
 
       - name: checkout target repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: ${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
