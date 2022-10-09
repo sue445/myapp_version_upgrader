@@ -11,8 +11,6 @@ class BaseRunner
     @dry_run = dry_run
     @assignee = assignee
     @log_level = log_level
-
-    @node = YAML.load_file(node_yaml)
   end
 
   def run
@@ -38,10 +36,6 @@ class BaseRunner
   end
 
   private
-
-  def node_yaml
-    File.join(__dir__, "..", "node.yml")
-  end
 
   def run_itamae
     Dir.mktmpdir("ci-config-itamae") do |tmp_dir|
