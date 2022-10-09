@@ -102,3 +102,13 @@ end
     only_if "ls #{REPO_DIR}/.github/workflows/#{name}.yml"
   end
 end
+
+file "#{REPO_DIR}/.tool-versions" do
+  action :edit
+
+  block do |content|
+    content.gsub!(/^ruby ([\d.]+)$/, %Q{ruby #{node[:ruby_version]}})
+  end
+
+  only_if "ls #{REPO_DIR}/.tool-versions"
+end
