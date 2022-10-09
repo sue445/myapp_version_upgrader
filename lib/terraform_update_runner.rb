@@ -16,7 +16,7 @@ class TerraformUpdateRunner < BaseRunner
 
   # @param node [Hash]
   def update_node(node)
-    node["terraform_version"] = @terraform_version
+    node[:terraform_version] = @terraform_version
   end
 
   def recipe_file

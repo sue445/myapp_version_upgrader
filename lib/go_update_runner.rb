@@ -16,7 +16,7 @@ class GoUpdateRunner < BaseRunner
 
   # @param node [Hash]
   def update_node(node)
-    node["go_version"] = @go_version
+    node[:go_version] = @go_version
   end
 
   def recipe_file
