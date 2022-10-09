@@ -61,6 +61,12 @@ class BaseRunner
         f.write(node.to_yaml)
       end
 
+      if @log_level == "debug"
+        puts "[DEBUG] #{tmp_node_yml}"
+        puts node.to_yaml
+        puts ""
+      end
+
       args = [
         recipe_file,
         "--node-yaml=#{tmp_node_yml}",
