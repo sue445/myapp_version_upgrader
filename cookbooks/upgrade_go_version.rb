@@ -39,14 +39,20 @@ file "#{node[:repo_dir]}/.circleci/config.yml" do
   only_if "ls #{node[:repo_dir]}/.circleci/config.yml"
 end
 
-file "#{node[:repo_dir]}/Dockerfile" do
-  action :edit
 
-  block do |content|
-    content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{node[:go_version]}})
+%w(
+  Dockerfile
+  function/Dockerfile
+).each do |name|
+  file "#{node[:repo_dir]}/#{name}" do
+    action :edit
+
+    block do |content|
+      content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{node[:go_version]}})
+    end
+
+    only_if "ls #{node[:repo_dir]}/#{name}"
   end
-
-  only_if "ls #{node[:repo_dir]}/Dockerfile"
 end
 
 (node[:github_workflow_files] + ["app.yaml"]).each do |workflow_file|
