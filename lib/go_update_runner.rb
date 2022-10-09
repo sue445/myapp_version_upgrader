@@ -4,9 +4,10 @@ class GoUpdateRunner < BaseRunner
   # @param go_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]
-  def initialize(go_version:, dry_run:, assignee:)
+  # @param log_level [String]
+  def initialize(go_version:, dry_run:, assignee:, log_level:)
     @go_version = go_version
-    super(dry_run:, assignee:)
+    super(dry_run:, assignee:, log_level:)
   end
 
   # @return [String]

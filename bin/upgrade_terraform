@@ -7,8 +7,9 @@ require_relative "../lib/terraform_update_runner"
 DRY_RUN           = ENV["DRY_RUN"] == "true"
 TERRAFORM_VERSION = ENV["TERRAFORM_VERSION"]
 ASSIGNEE          = ENV["ASSIGNEE"]
+LOG_LEVEL         = ENV["LOG_LEVEL"] || "info"
 
 raise "TERRAFORM_VERSION is required" if !TERRAFORM_VERSION || TERRAFORM_VERSION.empty?
 
-updater = TerraformUpdateRunner.new(dry_run: DRY_RUN, terraform_version: TERRAFORM_VERSION, assignee: ASSIGNEE)
+updater = TerraformUpdateRunner.new(dry_run: DRY_RUN, terraform_version: TERRAFORM_VERSION, assignee: ASSIGNEE, log_level: LOG_LEVEL)
 updater.run

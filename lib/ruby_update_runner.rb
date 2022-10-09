@@ -5,9 +5,10 @@ class RubyUpdateRunner < BaseRunner
   # @param ruby_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]
-  def initialize(ruby_version:, dry_run:, assignee:)
+  # @param log_level [String]
+  def initialize(ruby_version:, dry_run:, assignee:, log_level:)
     @ruby_version = ruby_version
-    super(dry_run:, assignee:)
+    super(dry_run:, assignee:, log_level:)
   end
 
   # @return [String]

@@ -4,9 +4,10 @@ class TerraformUpdateRunner < BaseRunner
   # @param terraform_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]
-  def initialize(terraform_version:, dry_run:, assignee:)
+  # @param log_level [String]
+  def initialize(terraform_version:, dry_run:, assignee:, log_level:)
     @terraform_version = terraform_version
-    super(dry_run:, assignee:)
+    super(dry_run:, assignee:, log_level:)
   end
 
   # @return [String]

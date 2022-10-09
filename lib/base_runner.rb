@@ -5,10 +5,12 @@ class BaseRunner
   REPO_DIR = "tmp/repo"
 
   # @param dry_run [Boolean]
-  def initialize(dry_run:, assignee:)
+  # @param assignee [String]
+  # @param log_level [String]
+  def initialize(dry_run:, assignee:, log_level:)
     @dry_run = dry_run
     @assignee = assignee
-    @log_level = "info"
+    @log_level = log_level
 
     @node = YAML.load_file(node_yaml)
   end
