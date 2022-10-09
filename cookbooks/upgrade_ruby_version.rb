@@ -1,6 +1,4 @@
-REPO_DIR = "tmp/repo/"
-
-file "#{REPO_DIR}/.circleci/config.yml" do
+file "#{node[:repo_dir]}/.circleci/config.yml" do
   action :edit
 
   block do |content|
@@ -8,32 +6,32 @@ file "#{REPO_DIR}/.circleci/config.yml" do
     content.gsub!(%r{- image: cimg/ruby:[\d.]+},     "- image: cimg/ruby:#{node[:ruby_version]}")
   end
 
-  only_if "ls #{REPO_DIR}/.circleci/config.yml"
+  only_if "ls #{node[:repo_dir]}/.circleci/config.yml"
 end
 
-file "#{REPO_DIR}/wercker.yml" do
+file "#{node[:repo_dir]}/wercker.yml" do
   action :edit
 
   block do |content|
     content.gsub!(%r{^box: ruby:([\d.]+)}, "box: ruby:#{node[:ruby_version]}")
   end
 
-  only_if "ls #{REPO_DIR}/wercker.yml"
+  only_if "ls #{node[:repo_dir]}/wercker.yml"
 end
 
 if node[:is_full_version]
-  file "#{REPO_DIR}/.ruby-version" do
+  file "#{node[:repo_dir]}/.ruby-version" do
     action :edit
 
     block do |content|
       content.gsub!(/[\d.]+/, node[:ruby_version])
     end
 
-    only_if "ls #{REPO_DIR}/.ruby-version"
+    only_if "ls #{node[:repo_dir]}/.ruby-version"
   end
 end
 
-file "#{REPO_DIR}/Gemfile" do
+file "#{node[:repo_dir]}/Gemfile" do
   action :edit
 
   block do |content|
@@ -44,11 +42,11 @@ file "#{REPO_DIR}/Gemfile" do
     end
   end
 
-  only_if "ls #{REPO_DIR}/Gemfile"
+  only_if "ls #{node[:repo_dir]}/Gemfile"
 end
 
 if node[:ruby_version_with_patch_level]
-  file "#{REPO_DIR}/Gemfile.lock" do
+  file "#{node[:repo_dir]}/Gemfile.lock" do
     action :edit
 
     block do |content|
@@ -60,28 +58,28 @@ if node[:ruby_version_with_patch_level]
       end
     end
 
-    only_if "ls #{REPO_DIR}/Gemfile.lock"
+    only_if "ls #{node[:repo_dir]}/Gemfile.lock"
   end
 end
 
-file "#{REPO_DIR}/.rubocop.yml" do
+file "#{node[:repo_dir]}/.rubocop.yml" do
   action :edit
 
   block do |content|
     content.gsub!(/TargetRubyVersion: ([\d.]+)/, "TargetRubyVersion: #{node[:ruby_minor_version]}")
   end
 
-  only_if "ls #{REPO_DIR}/.rubocop.yml"
+  only_if "ls #{node[:repo_dir]}/.rubocop.yml"
 end
 
-file "#{REPO_DIR}/Dockerfile" do
+file "#{node[:repo_dir]}/Dockerfile" do
   action :edit
 
   block do |content|
     content.gsub!(/^FROM ruby:([\d.]+)$/, %Q{FROM ruby:#{node[:ruby_version]}})
   end
 
-  only_if "ls #{REPO_DIR}/Dockerfile"
+  only_if "ls #{node[:repo_dir]}/Dockerfile"
 end
 
 %w(
@@ -90,7 +88,7 @@ end
   test
   build
 ).each do |name|
-  file "#{REPO_DIR}/.github/workflows/#{name}.yml" do
+  file "#{node[:repo_dir]}/.github/workflows/#{name}.yml" do
     action :edit
 
     block do |content|
@@ -99,16 +97,16 @@ end
       content.gsub!(/ruby\d{2}(?!\d)/, node[:gcf_runtime_version])
     end
 
-    only_if "ls #{REPO_DIR}/.github/workflows/#{name}.yml"
+    only_if "ls #{node[:repo_dir]}/.github/workflows/#{name}.yml"
   end
 end
 
-file "#{REPO_DIR}/.tool-versions" do
+file "#{node[:repo_dir]}/.tool-versions" do
   action :edit
 
   block do |content|
     content.gsub!(/^ruby ([\d.]+)$/, %Q{ruby #{node[:ruby_version]}})
   end
 
-  only_if "ls #{REPO_DIR}/.tool-versions"
+  only_if "ls #{node[:repo_dir]}/.tool-versions"
 end
