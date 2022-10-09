@@ -82,13 +82,8 @@ file "#{node[:repo_dir]}/Dockerfile" do
   only_if "ls #{node[:repo_dir]}/Dockerfile"
 end
 
-%w(
-  bundle-update-pr
-  deploy
-  test
-  build
-).each do |name|
-  file "#{node[:repo_dir]}/.github/workflows/#{name}.yml" do
+node[:github_workflow_files].each do |workflow_file|
+  file workflow_file do
     action :edit
 
     block do |content|
@@ -97,7 +92,7 @@ end
       content.gsub!(/ruby\d{2}(?!\d)/, node[:gcf_runtime_version])
     end
 
-    only_if "ls #{node[:repo_dir]}/.github/workflows/#{name}.yml"
+    only_if "ls #{workflow_file}"
   end
 end
 

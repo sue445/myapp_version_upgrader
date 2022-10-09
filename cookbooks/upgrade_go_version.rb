@@ -1,11 +1,7 @@
 gcp_runtime_version = "go#{node[:go_version].gsub(".", "")}"
 
-%w(
-  build
-  release
-  test
-).each do |name|
-  file "#{node[:repo_dir]}/.github/workflows/#{name}.yml" do
+node[:github_workflow_files].each do |workflow_file|
+  file workflow_file do
     action :edit
 
     block do |content|
@@ -13,7 +9,7 @@ gcp_runtime_version = "go#{node[:go_version].gsub(".", "")}"
       content.gsub!(/GO_VERSION:\s+[\d.]+$/, "GO_VERSION: #{node[:go_version]}")
     end
 
-    only_if "ls #{node[:repo_dir]}/.github/workflows/#{name}.yml"
+    only_if "ls #{workflow_file}"
   end
 end
 
@@ -53,18 +49,14 @@ file "#{node[:repo_dir]}/Dockerfile" do
   only_if "ls #{node[:repo_dir]}/Dockerfile"
 end
 
-%w(
-  app.yaml
-  serverless.yml
-  function/serverless.yml
-).each do |name|
-  file "#{node[:repo_dir]}/#{name}" do
+(node[:github_workflow_files] + ["app.yaml"]).each do |workflow_file|
+  file workflow_file do
     action :edit
 
     block do |content|
       content.gsub!(/^runtime: go\d+$/, "runtime: #{gcp_runtime_version}")
     end
 
-    only_if "ls #{node[:repo_dir]}/#{name}"
+    only_if "ls #{workflow_file}"
   end
 end
