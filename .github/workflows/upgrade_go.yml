@@ -82,6 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           GITHUB_REPO:  ${{ matrix.repo }}
           GO_VERSION:   ${{ matrix.go_version }}
+          # LOG_LEVEL:    debug
 
       - name: Slack Notification (not success)
         uses: lazy-actions/slatify@master

@@ -4,10 +4,11 @@ require "bundler/setup"
 
 require_relative "../lib/ruby_update_runner"
 
-DRY_RUN  = ENV["DRY_RUN"] == "true"
-ASSIGNEE = ENV["ASSIGNEE"]
+DRY_RUN   = ENV["DRY_RUN"] == "true"
+ASSIGNEE  = ENV["ASSIGNEE"]
+LOG_LEVEL = ENV["LOG_LEVEL"] || "info"
 
 raise 'ENV["RUBY_VERSION"] is required' if !ENV["RUBY_VERSION"] || ENV["RUBY_VERSION"].empty?
 
-updater = RubyUpdateRunner.new(ruby_version: ENV["RUBY_VERSION"], dry_run: DRY_RUN, assignee: ASSIGNEE)
+updater = RubyUpdateRunner.new(ruby_version: ENV["RUBY_VERSION"], dry_run: DRY_RUN, assignee: ASSIGNEE, log_level: LOG_LEVEL)
 updater.run
