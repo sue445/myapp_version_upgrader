@@ -54,7 +54,7 @@ end
     action :edit
 
     block do |content|
-      content.gsub!(/^runtime: go\d+$/, "runtime: #{gcp_runtime_version}")
+      content.gsub!(/go\d{3}(?!\d)/, gcp_runtime_version)
     end
 
     only_if "ls #{workflow_file}"
