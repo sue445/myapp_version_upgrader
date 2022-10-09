@@ -45,6 +45,8 @@ class BaseRunner
     Dir.mktmpdir("ci-config-itamae") do |tmp_dir|
       node = YAML.load_file(node_yaml)
       node ||= {}
+      node[:github_workflow_files] = github_workflow_files(node[:repo_dir])
+
       update_node(node)
 
       tmp_node_yml = File.join(tmp_dir, "node.yml")
@@ -61,6 +63,11 @@ class BaseRunner
 
       sh "itamae local #{args.join(" ")}"
     end
+  end
+
+  def github_workflow_files(repo_dir)
+    workflow_dir = File.join(repo_dir, ".github/workflows")
+    Dir.glob("#{workflow_dir}/*.yml")
   end
 
   # @param repo_dir [String]
