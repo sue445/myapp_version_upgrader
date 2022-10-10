@@ -100,7 +100,7 @@ file "#{node[:repo_dir]}/.tool-versions" do
   action :edit
 
   block do |content|
-    content.gsub!(/^ruby ([\d.]+)$/, %Q{ruby #{node[:ruby_version]}})
+    content.gsub!(/^ruby ([\d.]+)$/, "ruby #{node[:ruby_version]}")
   end
 
   only_if "ls #{node[:repo_dir]}/.tool-versions"
