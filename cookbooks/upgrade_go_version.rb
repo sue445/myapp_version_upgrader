@@ -55,14 +55,14 @@ end
   end
 end
 
-(node[:github_workflow_files] + ["app.yaml"]).each do |workflow_file|
-  file workflow_file do
+(node[:github_workflow_files] + ["app.yaml"]).each do |name|
+  file name do
     action :edit
 
     block do |content|
       content.gsub!(/go\d{3}(?!\d)/, gcp_runtime_version)
     end
 
-    only_if "ls #{workflow_file}"
+    only_if "ls #{name}"
   end
 end
