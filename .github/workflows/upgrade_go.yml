@@ -40,7 +40,7 @@ jobs:
 
           # c.f. https://cloud.google.com/functions/docs/concepts/go-runtime?hl=ja
           - repo: "sue445/primap"
-            go_version: "1.16"
+            go_version: "1.19"
 
     steps:
       - uses: actions/checkout@v3
