@@ -55,7 +55,7 @@ end
   end
 end
 
-(node[:github_workflow_files] + ["app.yaml"]).each do |name|
+(node[:github_workflow_files] + ["#{node[:repo_dir]}/app.yaml"]).each do |name|
   file name do
     action :edit
 
