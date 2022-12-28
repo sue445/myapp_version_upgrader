@@ -27,28 +27,28 @@ jobs:
       matrix:
         include:
           - repo: "sue445/cure-bots"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/cure-mastodon-bots"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/dockerhub-slack-webhook"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/emoy_webhook"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/precure-birthday-calendar"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/pretty-all-friends-birthday-calendar"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/pribirthdaybot"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           - repo: "sue445/tweet_pixels"
-            ruby_version: "3.1"
+            ruby_version: "3.2"
 
           # NOTE: GCFで使えるrubyのバージョンは https://cloud.google.com/functions/docs/concepts/ruby-runtime?hl=ja で確認する
           - repo: "sue445/regional-rb-calendar"
