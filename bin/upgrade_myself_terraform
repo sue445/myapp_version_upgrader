@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require_relative "../lib/myself_terraform_version_runner"
+
+DRY_RUN           = ENV["DRY_RUN"] == "true"
+ASSIGNEE          = ENV["ASSIGNEE"]
+LOG_LEVEL         = ENV["LOG_LEVEL"] || "info"
+
+updater = MyselfTerraformVersionRunner.new(dry_run: DRY_RUN, assignee: ASSIGNEE, log_level: LOG_LEVEL)
+updater.run
