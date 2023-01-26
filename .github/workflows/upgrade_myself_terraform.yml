@@ -1,0 +1,103 @@
+name: upgrade_myself_terraform
+
+on:
+  push:
+    paths:
+      # common
+      - "lib/base_runner.rb"
+      - "Gemfile"
+      - "Gemfile.lock"
+      - ".ruby-version"
+
+      - ".github/workflows/upgrade_myself_terraform.yml"
+      - "bin/upgrade_myself_terraform"
+      - "cookbooks/upgrade_myself_terraform_version.rb"
+      - "lib/myself_terraform_update_runner.rb"
+
+  schedule:
+    - cron: "0 10 * * 5" # JST 19:00 (Fri)
+  workflow_dispatch:
+
+env:
+  ASSIGNEE: sue445
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - repo: "sue445/myapp_version_upgrader"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
+
+      - name: checkout target repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -l tmp/repo/
+
+      - name: Run ./bin/upgrade_myself_terraform
+        run: |
+          set -xe
+
+          git config --global user.email "version_updater@example.com"
+          git config --global user.name "version_updater"
+
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            export DRY_RUN=false
+          else
+            export DRY_RUN=true
+          fi
+          ./bin/upgrade_myself_terraform
+        env:
+          GITHUB_TOKEN:      ${{ steps.generate_token.outputs.token }}
+          GITHUB_REPO:       ${{ matrix.repo }}
+          TERRAFORM_VERSION: ${{ matrix.terraform_version }}
+          # LOG_LEVEL:         debug
+
+      - name: Slack Notification (not success)
+        uses: lazy-actions/slatify@master
+        if: "! success()"
+        continue-on-error: true
+        with:
+          job_name: ${{ format('*upgrade_terraform* ({0})', matrix.repo) }}
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  notify:
+    needs:
+      - build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Slack Notification (success)
+        uses: lazy-actions/slatify@master
+        if: always()
+        continue-on-error: true
+        with:
+          job_name: '*build*'
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}
