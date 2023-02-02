@@ -26,13 +26,13 @@ jobs:
       matrix:
         include:
           - repo: "sue445/gitpanda"
-            go_version: "1.19"
+            go_version: "1.20"
 
           - repo: "sue445/plant_erd"
-            go_version: "1.19"
+            go_version: "1.20"
 
           - repo: "sue445/zatsu_monitor"
-            go_version: "1.19"
+            go_version: "1.20"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/go/runtime?hl=ja
           - repo: "sue445/condo3"
