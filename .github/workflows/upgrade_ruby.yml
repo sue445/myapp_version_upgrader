@@ -32,6 +32,9 @@ jobs:
           - repo: "sue445/cure-mastodon-bots"
             ruby_version: "3.2"
 
+          - repo: "sue445/dockerfile-packer-serverspec"
+            ruby_version: "3.2"
+
           - repo: "sue445/dockerhub-slack-webhook"
             ruby_version: "3.2"
 
