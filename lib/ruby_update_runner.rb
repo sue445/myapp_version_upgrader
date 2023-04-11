@@ -24,7 +24,7 @@ class RubyUpdateRunner < BaseRunner
     v = @ruby_version.split(".")
     node[:is_full_version] = v.count == 3
     node[:ruby_minor_version] = "#{v[0]}.#{v[1]}"
-    node[:gcf_runtime_version] = "ruby#{v[0]}#{v[1]}"
+    node[:gcp_runtime_version] = "ruby#{v[0]}#{v[1]}"
   end
 
   def recipe_file

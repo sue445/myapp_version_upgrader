@@ -90,11 +90,21 @@ node[:github_workflow_files].each do |workflow_file|
 
     block do |content|
       content.gsub!(/ruby-version: "(.+)"/, %Q{ruby-version: "#{node[:ruby_version]}"})
-
-      content.gsub!(/ruby\d{2}(?!\d)/, node[:gcf_runtime_version])
     end
 
     only_if "ls #{workflow_file}"
+  end
+end
+
+(node[:github_workflow_files] + ["#{node[:repo_dir]}/app.yaml"]).each do |name|
+  file name do
+    action :edit
+
+    block do |content|
+      content.gsub!(/ruby\d{2}(?!\d)/, node[:gcp_runtime_version])
+    end
+
+    only_if "ls #{name}"
   end
 end
 
