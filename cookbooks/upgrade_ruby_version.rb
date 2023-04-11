@@ -38,7 +38,7 @@ file "#{node[:repo_dir]}/Gemfile" do
     if node[:is_full_version]
       content.gsub!(/^ruby "([\d.]+)"$/, %Q{ruby "#{node[:ruby_version]}"})
     else
-      content.gsub!(/^ruby "([\d.]+)"$/, %Q{ruby "~> #{node[:ruby_minor_version]}.0"})
+      content.gsub!(/^ruby "~> ([\d.]+)"$/, %Q{ruby "~> #{node[:ruby_minor_version]}.0"})
     end
   end
 
