@@ -42,7 +42,7 @@ jobs:
             ruby_version: "3.2"
 
           - repo: "sue445/myapp_version_upgrader"
-            ruby_version: "3.2.0"
+            ruby_version: "3.2.2"
 
           - repo: "sue445/precure-birthday-calendar"
             ruby_version: "3.2"
