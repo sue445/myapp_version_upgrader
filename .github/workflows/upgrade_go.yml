@@ -26,13 +26,13 @@ jobs:
       matrix:
         include:
           - repo: "sue445/gitpanda"
-            go_version: "1.20"
+            go_version: "1.21"
 
           - repo: "sue445/plant_erd"
-            go_version: "1.20"
+            go_version: "1.21"
 
           - repo: "sue445/zatsu_monitor"
-            go_version: "1.20"
+            go_version: "1.21"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/go/runtime?hl=ja
           - repo: "sue445/condo3"
@@ -40,7 +40,7 @@ jobs:
 
           # c.f. https://cloud.google.com/functions/docs/concepts/go-runtime?hl=ja
           - repo: "sue445/primap"
-            go_version: "1.20"
+            go_version: "1.21"
 
     steps:
       - uses: actions/checkout@v3
