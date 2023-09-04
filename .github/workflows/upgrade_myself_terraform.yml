@@ -32,7 +32,7 @@ jobs:
           - repo: "sue445/myapp_version_upgrader"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -46,7 +46,7 @@ jobs:
           private_key: ${{ secrets.GH_PRIVATE_KEY }}
 
       - name: checkout target repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
