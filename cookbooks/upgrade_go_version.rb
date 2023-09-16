@@ -23,7 +23,15 @@ end
     block do |content|
       content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}")
 
-      content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_version]}.0")
+      if content.match?(/^toolchain go[\d.]+$/)
+        content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_version]}.0")
+      else
+        if node[:go_version].to_f >= 1.21
+          # toolchain is requires for dependabot
+          # c.f. https://github.com/orgs/community/discussions/65431#discussioncomment-6875620
+          content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}\ntoolchain go#{node[:go_version]}.0")
+        end
+      end
     end
 
     only_if "ls #{node[:repo_dir]}/#{name}"
