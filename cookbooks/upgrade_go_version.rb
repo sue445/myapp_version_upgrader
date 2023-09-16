@@ -22,6 +22,8 @@ end
 
     block do |content|
       content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}")
+
+      content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_version]}.0")
     end
 
     only_if "ls #{node[:repo_dir]}/#{name}"
