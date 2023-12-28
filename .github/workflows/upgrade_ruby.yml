@@ -33,16 +33,16 @@ jobs:
             ruby_version: "3.2"
 
           - repo: "sue445/dockerfile-packer-serverspec"
-            ruby_version: "3.2"
+            ruby_version: "3.3"
 
           - repo: "sue445/dockerhub-slack-webhook"
-            ruby_version: "3.2"
+            ruby_version: "3.3"
 
           - repo: "sue445/emoy_webhook"
-            ruby_version: "3.2"
+            ruby_version: "3.3"
 
           - repo: "sue445/myapp_version_upgrader"
-            ruby_version: "3.2.2"
+            ruby_version: "3.3.0"
 
           - repo: "sue445/precure-birthday-calendar"
             ruby_version: "3.2"
@@ -50,10 +50,10 @@ jobs:
           - repo: "sue445/pretty-all-friends-birthday-calendar"
             ruby_version: "3.2"
 
+          # NOTE: GCFで使えるrubyのバージョンは https://cloud.google.com/functions/docs/concepts/ruby-runtime?hl=ja で確認する
           - repo: "sue445/pribirthdaybot"
             ruby_version: "3.2"
 
-          # NOTE: GCFで使えるrubyのバージョンは https://cloud.google.com/functions/docs/concepts/ruby-runtime?hl=ja で確認する
           - repo: "sue445/regional-rb-calendar"
             ruby_version: "3.2"
 
