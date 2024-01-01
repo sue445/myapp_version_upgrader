@@ -26,12 +26,10 @@ jobs:
 
       matrix:
         include:
-          - repo: "sue445/cure-bots"
-            ruby_version: "3.2"
+          - repo: "sue445/myapp_version_upgrader"
+            ruby_version: "3.3.0"
 
-          - repo: "sue445/cure-mastodon-bots"
-            ruby_version: "3.2"
-
+          # NOTE: Dependent on https://hub.docker.com/_/ruby
           - repo: "sue445/dockerfile-packer-serverspec"
             ruby_version: "3.3"
 
@@ -41,8 +39,12 @@ jobs:
           - repo: "sue445/emoy_webhook"
             ruby_version: "3.3"
 
-          - repo: "sue445/myapp_version_upgrader"
-            ruby_version: "3.3.0"
+          # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
+          - repo: "sue445/cure-bots"
+            ruby_version: "3.2"
+
+          - repo: "sue445/cure-mastodon-bots"
+            ruby_version: "3.2"
 
           - repo: "sue445/precure-birthday-calendar"
             ruby_version: "3.2"
