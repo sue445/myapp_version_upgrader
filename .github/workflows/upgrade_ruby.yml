@@ -40,7 +40,7 @@ jobs:
             ruby_version: "3.3"
 
           - repo: "sue445/rubicure-playground"
-            ruby_version: "3.2"
+            ruby_version: "3.3"
 
           # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
           - repo: "sue445/cure-mastodon-bots"
