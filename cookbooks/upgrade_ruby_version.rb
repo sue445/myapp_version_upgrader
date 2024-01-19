@@ -79,6 +79,7 @@ file "#{node[:repo_dir]}/Dockerfile" do
 
   block do |content|
     content.gsub!(/^FROM ruby:([\d.]+)$/, %Q{FROM ruby:#{node[:ruby_version]}})
+    content.gsub!(/^FROM ruby:([\d.]+)-alpine$/, %Q{FROM ruby:#{node[:ruby_version]}-alpine})
   end
 
   only_if "ls #{node[:repo_dir]}/Dockerfile"
