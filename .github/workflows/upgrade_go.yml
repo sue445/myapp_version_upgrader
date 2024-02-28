@@ -26,17 +26,17 @@ jobs:
       matrix:
         include:
           - repo: "sue445/gitpanda"
-            go_version: "1.21"
+            go_version: "1.22"
 
           - repo: "sue445/plant_erd"
-            go_version: "1.21"
+            go_version: "1.22"
 
           - repo: "sue445/zatsu_monitor"
-            go_version: "1.21"
+            go_version: "1.22"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - repo: "sue445/condo3"
-            go_version: "1.21"
+            go_version: "1.22"
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#go
           - repo: "sue445/primap"
