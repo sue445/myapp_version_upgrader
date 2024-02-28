@@ -34,11 +34,11 @@ jobs:
           - repo: "sue445/zatsu_monitor"
             go_version: "1.21"
 
-          # c.f. https://cloud.google.com/appengine/docs/standard/go/runtime?hl=ja
+          # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - repo: "sue445/condo3"
             go_version: "1.21"
 
-          # c.f. https://cloud.google.com/functions/docs/concepts/go-runtime?hl=ja
+          # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#go
           - repo: "sue445/primap"
             go_version: "1.21"
 
