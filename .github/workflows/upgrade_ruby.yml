@@ -52,7 +52,7 @@ jobs:
           - repo: "sue445/pretty-all-friends-birthday-calendar"
             ruby_version: "3.3"
 
-          # NOTE: GCFで使えるrubyのバージョンは https://cloud.google.com/functions/docs/concepts/ruby-runtime?hl=ja で確認する
+          # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "sue445/pribirthdaybot"
             ruby_version: "3.2"
 
