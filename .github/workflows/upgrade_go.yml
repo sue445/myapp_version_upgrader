@@ -25,6 +25,9 @@ jobs:
 
       matrix:
         include:
+          - repo: "sue445/feed_squeezer"
+            go_version: "1.22"
+
           - repo: "sue445/gitpanda"
             go_version: "1.22"
 
