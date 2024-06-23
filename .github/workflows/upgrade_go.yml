@@ -34,6 +34,9 @@ jobs:
           - repo: "sue445/plant_erd"
             go_version: "1.22"
 
+          - repo: "sue445/terraform-version-updater"
+            go_version: "1.22"
+
           - repo: "sue445/zatsu_monitor"
             go_version: "1.22"
 
