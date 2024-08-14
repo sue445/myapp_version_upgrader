@@ -26,19 +26,19 @@ jobs:
       matrix:
         include:
           - repo: "sue445/feed_squeezer"
-            go_version: "1.22"
+            go_version: "1.23"
 
           - repo: "sue445/gitpanda"
-            go_version: "1.22"
+            go_version: "1.23"
 
           - repo: "sue445/plant_erd"
-            go_version: "1.22"
+            go_version: "1.23"
 
           - repo: "sue445/terraform-version-updater"
-            go_version: "1.22"
+            go_version: "1.23"
 
           - repo: "sue445/zatsu_monitor"
-            go_version: "1.22"
+            go_version: "1.23"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - repo: "sue445/condo3"
