@@ -44,10 +44,6 @@ jobs:
           - repo: "sue445/condo3"
             go_version: "1.22"
 
-          # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#go
-          - repo: "sue445/primap"
-            go_version: "1.22"
-
     steps:
       - uses: actions/checkout@v4
 
