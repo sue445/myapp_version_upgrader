@@ -40,9 +40,10 @@ jobs:
           - repo: "sue445/zatsu_monitor"
             go_version: "1.23"
 
+          # TODO: Enable after AppEngine supports Go 1.23
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
-          - repo: "sue445/condo3"
-            go_version: "1.22"
+          # - repo: "sue445/condo3"
+          #   go_version: "1.22"
 
     steps:
       - uses: actions/checkout@v4
