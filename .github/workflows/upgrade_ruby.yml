@@ -44,16 +44,16 @@ jobs:
 
           # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
           - repo: "sue445/cure-mastodon-bots"
-            ruby_version: "3.3"
+            ruby_version: "3.4"
 
           - repo: "sue445/precure-birthday-calendar"
-            ruby_version: "3.3"
+            ruby_version: "3.4"
 
           - repo: "sue445/pretty-all-friends-birthday-calendar"
-            ruby_version: "3.3"
+            ruby_version: "3.4"
 
           - repo: "sue445/tweet_pixels"
-            ruby_version: "3.3"
+            ruby_version: "3.4"
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "sue445/pribirthdaybot"
