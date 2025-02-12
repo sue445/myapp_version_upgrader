@@ -25,6 +25,13 @@ jobs:
 
       matrix:
         include:
+          - repo: "sue445/terraform-version-updater"
+            go_version: "1.23"
+
+          - repo: "sue445/zatsu_monitor"
+            go_version: "1.23"
+
+          # NOTE: Dependent on https://hub.docker.com/_/golang
           - repo: "sue445/feed_squeezer"
             go_version: "1.23"
 
@@ -32,12 +39,6 @@ jobs:
             go_version: "1.23.4"
 
           - repo: "sue445/plant_erd"
-            go_version: "1.23"
-
-          - repo: "sue445/terraform-version-updater"
-            go_version: "1.23"
-
-          - repo: "sue445/zatsu_monitor"
             go_version: "1.23"
 
           # TODO: Enable after AppEngine supports Go 1.23
