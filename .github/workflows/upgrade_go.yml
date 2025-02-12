@@ -26,10 +26,10 @@ jobs:
       matrix:
         include:
           - repo: "sue445/terraform-version-updater"
-            go_version: "1.23"
+            go_version: "1.24"
 
           - repo: "sue445/zatsu_monitor"
-            go_version: "1.23"
+            go_version: "1.24"
 
           # NOTE: Dependent on https://hub.docker.com/_/golang
           - repo: "sue445/feed_squeezer"
