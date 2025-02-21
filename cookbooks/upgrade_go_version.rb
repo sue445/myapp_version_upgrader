@@ -48,8 +48,8 @@ file "#{node[:repo_dir]}/.circleci/config.yml" do
   action :edit
 
   block do |content|
-    content.gsub!(%r{- image: circleci/golang:[\d.]+}, "- image: circleci/golang:#{node[:go_version]}")
-    content.gsub!(%r{- image: cimg/go:[\d.]+}, "- image: cimg/go:#{node[:go_version]}")
+    content.gsub!(%r{- image: circleci/golang:[\d.]+}, "- image: circleci/golang:#{node[:go_minor_version]}")
+    content.gsub!(%r{- image: cimg/go:[\d.]+}, "- image: cimg/go:#{node[:go_minor_version]}")
   end
 
   only_if "ls #{node[:repo_dir]}/.circleci/config.yml"
@@ -64,7 +64,7 @@ end
     action :edit
 
     block do |content|
-      content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{node[:go_version]}})
+      content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{node[:go_minor_version]}})
     end
 
     only_if "ls #{node[:repo_dir]}/#{name}"
