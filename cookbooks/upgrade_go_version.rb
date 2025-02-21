@@ -1,5 +1,3 @@
-gcp_runtime_version = "go#{node[:go_version].gsub(".", "")}"
-
 node[:github_workflow_files].each do |workflow_file|
   file workflow_file do
     action :edit
@@ -76,7 +74,7 @@ end
     action :edit
 
     block do |content|
-      content.gsub!(/go\d{3}(?!\d)/, gcp_runtime_version)
+      content.gsub!(/go\d{3}(?!\d)/, node[:gcp_runtime_version] )
     end
 
     only_if "ls #{name}"
