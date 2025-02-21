@@ -25,7 +25,7 @@ end
 
       if content.match?(/^toolchain go[\d.]+$/)
         if node[:go_minor_version] >= 1.21 && node[:go_minor_version] < 1.23
-          content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_version]}.0")
+          content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_minor_version]}.0")
         else
           # toolchain is needless since Go 1.23
           # c.f. https://github.com/golang/go/issues/62278#issuecomment-2062002018
@@ -35,7 +35,7 @@ end
         if node[:go_minor_version] >= 1.21 && node[:go_minor_version] < 1.23
           # toolchain is requires for dependabot
           # c.f. https://github.com/orgs/community/discussions/65431#discussioncomment-6875620
-          content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}\ntoolchain go#{node[:go_version]}.0")
+          content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}\ntoolchain go#{node[:go_minor_version]}.0")
         end
       end
     end
