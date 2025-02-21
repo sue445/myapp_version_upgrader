@@ -1,3 +1,5 @@
+node[:go_minor_version] = node[:go_version].to_f
+
 node[:github_workflow_files].each do |workflow_file|
   file workflow_file do
     action :edit
@@ -22,7 +24,7 @@ end
       content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}")
 
       if content.match?(/^toolchain go[\d.]+$/)
-        if node[:go_version].to_f >= 1.21 && node[:go_version].to_f < 1.23
+        if node[:go_minor_version] >= 1.21 && node[:go_minor_version] < 1.23
           content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_version]}.0")
         else
           # toolchain is needless since Go 1.23
@@ -30,7 +32,7 @@ end
           content.gsub!(/^toolchain go[\d.]+$/, "")
         end
       else
-        if node[:go_version].to_f >= 1.21 && node[:go_version].to_f < 1.23
+        if node[:go_minor_version] >= 1.21 && node[:go_minor_version] < 1.23
           # toolchain is requires for dependabot
           # c.f. https://github.com/orgs/community/discussions/65431#discussioncomment-6875620
           content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}\ntoolchain go#{node[:go_version]}.0")
