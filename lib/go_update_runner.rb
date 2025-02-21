@@ -18,6 +18,9 @@ class GoUpdateRunner < BaseRunner
   # @param node [Hash]
   def update_node(node)
     node[:go_version] = @go_version
+
+    v = @go_version.split(".")
+    node[:gcp_runtime_version] = "go#{v[0]}#{v[1]}"
   end
 
   def recipe_file

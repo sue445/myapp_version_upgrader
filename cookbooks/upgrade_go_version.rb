@@ -1,4 +1,4 @@
-gcp_runtime_version = "go#{node[:go_version].gsub(".", "")}"
+node[:go_minor_version] = node[:go_version].to_f
 
 node[:github_workflow_files].each do |workflow_file|
   file workflow_file do
@@ -24,18 +24,18 @@ end
       content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}")
 
       if content.match?(/^toolchain go[\d.]+$/)
-        if node[:go_version].to_f >= 1.21 && node[:go_version].to_f < 1.23
-          content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_version]}.0")
+        if node[:go_minor_version] >= 1.21 && node[:go_minor_version] < 1.23
+          content.gsub!(/^toolchain go[\d.]+$/, "toolchain go#{node[:go_minor_version]}.0")
         else
           # toolchain is needless since Go 1.23
           # c.f. https://github.com/golang/go/issues/62278#issuecomment-2062002018
           content.gsub!(/^toolchain go[\d.]+$/, "")
         end
       else
-        if node[:go_version].to_f >= 1.21 && node[:go_version].to_f < 1.23
+        if node[:go_minor_version] >= 1.21 && node[:go_minor_version] < 1.23
           # toolchain is requires for dependabot
           # c.f. https://github.com/orgs/community/discussions/65431#discussioncomment-6875620
-          content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}\ntoolchain go#{node[:go_version]}.0")
+          content.gsub!(/^go [\d.]+$/, "go #{node[:go_version]}\ntoolchain go#{node[:go_minor_version]}.0")
         end
       end
     end
@@ -48,8 +48,8 @@ file "#{node[:repo_dir]}/.circleci/config.yml" do
   action :edit
 
   block do |content|
-    content.gsub!(%r{- image: circleci/golang:[\d.]+}, "- image: circleci/golang:#{node[:go_version]}")
-    content.gsub!(%r{- image: cimg/go:[\d.]+}, "- image: cimg/go:#{node[:go_version]}")
+    content.gsub!(%r{- image: circleci/golang:[\d.]+}, "- image: circleci/golang:#{node[:go_minor_version]}")
+    content.gsub!(%r{- image: cimg/go:[\d.]+}, "- image: cimg/go:#{node[:go_minor_version]}")
   end
 
   only_if "ls #{node[:repo_dir]}/.circleci/config.yml"
@@ -64,7 +64,7 @@ end
     action :edit
 
     block do |content|
-      content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{node[:go_version]}})
+      content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{node[:go_minor_version]}})
     end
 
     only_if "ls #{node[:repo_dir]}/#{name}"
@@ -76,7 +76,7 @@ end
     action :edit
 
     block do |content|
-      content.gsub!(/go\d{3}(?!\d)/, gcp_runtime_version)
+      content.gsub!(/go\d{3}(?!\d)/, node[:gcp_runtime_version] )
     end
 
     only_if "ls #{name}"
