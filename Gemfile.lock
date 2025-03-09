@@ -10,13 +10,13 @@ GEM
       schash (~> 0.1.0)
       specinfra (>= 2.64.0, < 3.0.0)
       thor (>= 1.0.0)
-    net-scp (4.0.0)
+    net-scp (4.1.0)
       net-ssh (>= 2.6.5, < 8.0.0)
     net-ssh (7.3.0)
     net-telnet (0.2.0)
     schash (0.1.2)
     sfl (2.3)
-    specinfra (2.91.0)
+    specinfra (2.92.0)
       base64
       net-scp
       net-ssh (>= 2.7)
