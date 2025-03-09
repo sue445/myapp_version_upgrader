@@ -27,7 +27,7 @@ jobs:
       matrix:
         include:
           - repo: "sue445/myapp_version_upgrader"
-            ruby_version: "3.4.1"
+            ruby_version: "3.4.2"
 
           # NOTE: Dependent on https://hub.docker.com/_/ruby
           - repo: "sue445/dockerfile-packer-serverspec"
