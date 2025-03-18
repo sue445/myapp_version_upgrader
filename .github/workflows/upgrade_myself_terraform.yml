@@ -29,7 +29,8 @@ jobs:
 
       matrix:
         include:
-          - repo: "sue445/myapp_version_upgrader"
+          - user: "sue445"
+            repo: "myapp_version_upgrader"
 
     steps:
       - uses: actions/checkout@v4
@@ -43,12 +44,14 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.GH_APP_ID }}
-          private-key: ${{ secrets.GH_PRIVATE_KEY }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ matrix.user }}
+          repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo }}
+          repository: ${{ matrix.user }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
           path:       tmp/repo/
 
