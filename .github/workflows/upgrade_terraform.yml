@@ -26,10 +26,12 @@ jobs:
       matrix:
         include:
           # c.f. https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md
-          - repo: "sue445/terraform-aws-template"
+          - user: "sue445"
+            repo: "terraform-aws-template"
             terraform_version: "1.11.2"
 
-          - repo: "sue445/terraform-gcp-template"
+          - user: "sue445"
+            repo: "terraform-gcp-template"
             terraform_version: "1.11.2"
 
     steps:
@@ -44,12 +46,14 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.GH_APP_ID }}
-          private-key: ${{ secrets.GH_PRIVATE_KEY }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ matrix.user }}
+          repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo }}
+          repository: ${{ matrix.user }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
           path:       tmp/repo/
 

@@ -25,24 +25,30 @@ jobs:
 
       matrix:
         include:
-          - repo: "sue445/terraform-version-updater"
+          - user: "sue445"
+            repo: "terraform-version-updater"
             go_version: "1.24"
 
-          - repo: "sue445/zatsu_monitor"
+          - user: "sue445"
+            repo: "zatsu_monitor"
             go_version: "1.24"
 
           # NOTE: Dependent on https://hub.docker.com/_/golang
-          - repo: "sue445/feed_squeezer"
+          - user: "sue445"
+            repo: "feed_squeezer"
             go_version: "1.24"
 
-          - repo: "sue445/gitpanda"
+          - user: "sue445"
+            repo: "gitpanda"
             go_version: "1.24"
 
-          - repo: "sue445/plant_erd"
+          - user: "sue445"
+            repo: "plant_erd"
             go_version: "1.24"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
-          - repo: "sue445/condo3"
+          - user: "sue445"
+            repo: "condo3"
             go_version: "1.23.0"
 
     steps:
@@ -57,12 +63,14 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.GH_APP_ID }}
-          private-key: ${{ secrets.GH_PRIVATE_KEY }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ matrix.user }}
+          repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo }}
+          repository: ${{ matrix.user }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
           path:       tmp/repo/
 
