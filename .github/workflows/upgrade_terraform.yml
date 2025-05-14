@@ -28,11 +28,11 @@ jobs:
           # c.f. https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md
           - user: "sue445"
             repo: "terraform-aws-template"
-            terraform_version: "1.11.4"
+            terraform_version: "1.12.0"
 
           - user: "sue445"
             repo: "terraform-gcp-template"
-            terraform_version: "1.11.4"
+            terraform_version: "1.12.0"
 
     steps:
       - uses: actions/checkout@v4
