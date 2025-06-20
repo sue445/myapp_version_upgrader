@@ -67,11 +67,11 @@ jobs:
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - user: "sue445"
             repo: "pribirthdaybot"
-            ruby_version: "3.3"
+            ruby_version: "3.4"
 
           - user: "sue445"
             repo: "regional-rb-calendar"
-            ruby_version: "3.3"
+            ruby_version: "3.4"
 
     steps:
       - uses: actions/checkout@v4
