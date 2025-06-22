@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ansi (1.5.0)
-    base64 (0.2.0)
+    base64 (0.3.0)
     hashie (5.0.0)
     itamae (1.14.1)
       ansi
@@ -16,7 +16,7 @@ GEM
     net-telnet (0.2.0)
     schash (0.1.2)
     sfl (2.3)
-    specinfra (2.94.0)
+    specinfra (2.94.1)
       base64
       net-scp
       net-ssh (>= 2.7)
