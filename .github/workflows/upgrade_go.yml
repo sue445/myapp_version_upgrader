@@ -49,7 +49,7 @@ jobs:
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - user: "sue445"
             repo: "condo3"
-            go_version: "1.23.0"
+            go_version: "1.24"
 
     steps:
       - uses: actions/checkout@v4
