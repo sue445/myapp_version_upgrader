@@ -35,7 +35,7 @@ jobs:
             terraform_version: "1.12.2"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -51,7 +51,7 @@ jobs:
           repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ matrix.user }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
