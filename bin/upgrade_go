@@ -4,12 +4,13 @@ require "bundler/setup"
 
 require_relative "../lib/go_update_runner"
 
-DRY_RUN    = ENV["DRY_RUN"] == "true"
-GO_VERSION = ENV["GO_VERSION"]
-ASSIGNEE   = ENV["ASSIGNEE"]
-LOG_LEVEL  = ENV["LOG_LEVEL"] || "info"
+DRY_RUN               = ENV["DRY_RUN"] == "true"
+GO_VERSION            = ENV["GO_VERSION"]
+GOLANGCI_LINT_VERSION = ENV["GOLANGCI_LINT_VERSION"]
+ASSIGNEE              = ENV["ASSIGNEE"]
+LOG_LEVEL             = ENV["LOG_LEVEL"] || "info"
 
 raise "GO_VERSION is required" if !GO_VERSION || GO_VERSION.empty?
 
-updater = GoUpdateRunner.new(dry_run: DRY_RUN, assignee: ASSIGNEE, go_version: GO_VERSION, log_level: LOG_LEVEL)
+updater = GoUpdateRunner.new(dry_run: DRY_RUN, assignee: ASSIGNEE, go_version: GO_VERSION, golangci_lint_version: GOLANGCI_LINT_VERSION, log_level: LOG_LEVEL)
 updater.run

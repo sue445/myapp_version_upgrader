@@ -2,11 +2,13 @@ require_relative "base_runner"
 
 class GoUpdateRunner < BaseRunner
   # @param go_version [String]
+  # @param golangci_lint_version [String]
   # @param dry_run [Boolean]
   # @param assignee [String]
   # @param log_level [String]
-  def initialize(go_version:, dry_run:, assignee:, log_level:)
+  def initialize(go_version:, golangci_lint_version:, dry_run:, assignee:, log_level:)
     @go_version = go_version
+    @golangci_lint_version = golangci_lint_version
     super(dry_run:, assignee:, log_level:)
   end
 
@@ -18,6 +20,7 @@ class GoUpdateRunner < BaseRunner
   # @param node [Hash]
   def update_node(node)
     node[:go_version] = @go_version
+    node[:golangci_lint_version] = @golangci_lint_version
 
     v = @go_version.split(".")
     node[:gcp_runtime_version] = "go#{v[0]}#{v[1]}"
