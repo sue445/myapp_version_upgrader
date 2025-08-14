@@ -7,6 +7,7 @@ node[:github_workflow_files].each do |workflow_file|
     block do |content|
       content.gsub!(/go-version:\s+[\d.]+\s*$/, "go-version: #{node[:go_version]}")
       content.gsub!(/GO_VERSION:\s+[\d.]+$/, "GO_VERSION: #{node[:go_version]}")
+      content.gsub!(/GOLANGCI_LINT_VERSION: v[0-9.]+/, "GOLANGCI_LINT_VERSION: #{node[:golangci_lint_version]}")
     end
 
     only_if "ls #{workflow_file}"

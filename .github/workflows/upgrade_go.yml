@@ -27,29 +27,35 @@ jobs:
         include:
           - user: "sue445"
             repo: "terraform-version-updater"
-            go_version: "1.24"
+            go_version: "1.25"
+            golangci_lint_version: "v2.4"
 
           - user: "sue445"
             repo: "zatsu_monitor"
-            go_version: "1.24"
+            go_version: "1.25"
+            golangci_lint_version: "v2.4"
 
           # NOTE: Dependent on https://hub.docker.com/_/golang
           - user: "sue445"
             repo: "feed_squeezer"
-            go_version: "1.24"
+            go_version: "1.25"
+            golangci_lint_version: "v2.4"
 
           - user: "sue445"
             repo: "gitpanda"
-            go_version: "1.24"
+            go_version: "1.25"
+            golangci_lint_version: "v2.4"
 
           - user: "sue445"
             repo: "plant_erd"
-            go_version: "1.24"
+            go_version: "1.25"
+            golangci_lint_version: "v2.4"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - user: "sue445"
             repo: "condo3"
             go_version: "1.24"
+            golangci_lint_version: "" # This repo doesn't use golangci-lint
 
     steps:
       - uses: actions/checkout@v5
@@ -90,9 +96,10 @@ jobs:
           fi
           ./bin/upgrade_go
         env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          GITHUB_REPO:  ${{ matrix.repo }}
-          GO_VERSION:   ${{ matrix.go_version }}
+          GITHUB_TOKEN:          ${{ steps.generate_token.outputs.token }}
+          GITHUB_REPO:           ${{ matrix.repo }}
+          GO_VERSION:            ${{ matrix.go_version }}
+          GOLANGCI_LINT_VERSION: ${{ matrix.golangci_lint_version }}
           # LOG_LEVEL:    debug
 
       - name: Slack Notification (not success)
