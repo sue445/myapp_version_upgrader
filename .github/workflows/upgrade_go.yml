@@ -27,24 +27,24 @@ jobs:
         include:
           - user: "sue445"
             repo: "terraform-version-updater"
-            go_version: "1.24"
+            go_version: "1.25"
 
           - user: "sue445"
             repo: "zatsu_monitor"
-            go_version: "1.24"
+            go_version: "1.25"
 
           # NOTE: Dependent on https://hub.docker.com/_/golang
           - user: "sue445"
             repo: "feed_squeezer"
-            go_version: "1.24"
+            go_version: "1.25"
 
           - user: "sue445"
             repo: "gitpanda"
-            go_version: "1.24"
+            go_version: "1.25"
 
           - user: "sue445"
             repo: "plant_erd"
-            go_version: "1.24"
+            go_version: "1.25"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - user: "sue445"
